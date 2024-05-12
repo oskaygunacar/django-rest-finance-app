@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block pagecss%} <link rel="stylesheet" href="{%static 'css/homepage.css'%}"> {%endblock%}
+{%block metatitle%}Homepage{%endblock%}
+
+{%block content%}
+<div class="container">
+    <h1>Welcome to the TradeHub</h1>
+    <p>TradeHub is a platform that allows you to trade stocks, cryptocurrencies, and commodities.</p>
+    <p>Get started by creating an account or logging in.</p>
+    <div class="assetsDashboard">
+        <div class="assets">
+            <div class="asset"><a href=""><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="" width="35px"> Crypto</a></div>
+            <div class="asset"><a href=""><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="" width="35px">Stocks</a></div>
+            <div class="asset"><a href=""><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Property_Law_-_Gavel_and_Block_and_House_Keys.jpg/1920px-Property_Law_-_Gavel_and_Block_and_House_Keys.jpg" alt="" width="35px">Estate</a></div>
+        </div>    
+    </div>
+</div>
+{%endblock%}
