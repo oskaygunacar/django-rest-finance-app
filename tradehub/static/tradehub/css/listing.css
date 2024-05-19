@@ -1,0 +1,96 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.assetsDashboard {
+    background-color: #131212;
+    border-radius: 15px;
+    width: 500px;
+    margin-top:20px;
+}
+
+.assetsDashboard .assets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.assetsDashboard .assets .asset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:10px;
+    border-right: 1px solid #2d2d2d;
+    padding: 15px;
+}
+
+.assetsDashboard .assets .asset a {
+    display: flex;
+    align-items: center;
+}
+
+/* .assetsDashboard .assets .asset:hover{
+    background-color: #6ab26b;
+    border-radius: 15px;
+} */
+
+.assetIMG {
+    margin-right:5px;
+    align-self: center;
+    border-radius: 50%;
+}
+
+.assetIcon {
+    margin-right:10px;
+    font-size: 33px;
+}
+
+#addNewAsset {
+    margin-right:auto;
+}
+
+#addNewAsset a {
+    margin-bottom:25px;
+    background-color: #6ab26b;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 1400px) {
+    #addNewAsset a {
+        font-size:18px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #addNewAsset a {
+        font-size:15px;
+    }
+}
+@media screen and (max-width: 600px) {
+    #addNewAsset a {
+        font-size:13px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .assetsDashboard {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+    }
+
+    .assetsDashboard .assets {
+        display: block;
+    }
+
+    .assetsDashboard .asset {
+        border-right: none !important;
+    }
+    
+}

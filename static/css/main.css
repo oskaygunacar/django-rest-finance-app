@@ -6,6 +6,7 @@ body {
     color: white;
     padding: 50px 10% 0px 10%;
     height: 100vh;
+    font-family: "Nunito", sans-serif;
 }
 
 .navbar {
@@ -15,8 +16,18 @@ body {
     align-items: center;
 }
 
-.accountUrls a {
+.homeLogo {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.logo {
     margin-right:5px;
+}
+
+.accountUrls a {
+    margin-right:15px;
 }
 
 a {
@@ -28,4 +39,14 @@ a {
 a:hover {
     color: #f1f1f1 !important;
     text-decoration: underline;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.customBtn {
+    background-color: #6ab26b;
+    color: white;
+    font-weight: 600;
 }

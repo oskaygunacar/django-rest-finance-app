@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tradehub',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -120,8 +123,20 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), BASE_DIR / 'tradehub/static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+#todoList
+#TODO: Asset Detail Page Oluşturulacak (Page Design + View)
+    # Grafik ekleme işlevini de chart.js kullanarak gerçekleştir. Notionda nasıl yapalacağı task içinde anlatıldı.
+#TODO: Account Register, Login, Logout İşlemleri Oluşturulacak.
+#TODO: Profile Page, User Settings Change Page, Password Change Page oluşturulacak.
