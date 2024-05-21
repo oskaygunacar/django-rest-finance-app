@@ -39,6 +39,9 @@ class Asset(models.Model):
         # def __str__(self):
     #     return f'{self.user} - {self.amount}'
 
+    def get_absolute_url(self):
+        return reverse('tradehub:asset_logs', kwargs={'asset_slug': self.slug})
+
 
 
     # COİN JSON -> {'İşlem: (buy or sell)','COİN Adeti:', 'TOTAL PARA:', 'KUR:', 'USD KARŞILIĞI:'}

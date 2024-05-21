@@ -10,5 +10,6 @@ app_name = 'tradehub'
 urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('<slug:asset_category_slug>/add-new-asset/', views.add_new_asset, name='add_new_asset'),
-    path('assets/<slug:asset_category_slug>/', views.asset_category, name='asset_category')
+    path('assets/<slug:asset_category_slug>/', views.asset_category, name='asset_category'),
+    path('asset/<slug:asset_slug>/', views.asset_logs, name='asset_logs')
 ]

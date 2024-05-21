@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block pagecss%} <link rel="stylesheet" href="{%static 'tradehub/css/asset.css'%}"> {%endblock%}
+
+{%block content%}
+<div class="container">
+    <h1 class="text-center">
+        {{asset.name}}
+    </h1>
+    <div id="newAssetLog"><a href="/{{category.slug}}/add-new-asset/">Add New {{asset.name}} Transaction</a></div>
+    <div class="assetsDashboard">
+        <div class="assets">
+            <table class="assetTranscationTable">
+                <thead>
+                    <tr class="tableHeading">
+                        <th>Transaction Time</th>
+                        <th>Total Amounth</th>
+                        <th>Avg Price ₺</th>
+                        <th>Avg Price $</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{logs}}
+                    <tr class="tableBody">
+                        <td>27/04/2025</td>
+                        <td>12378132</td>
+                        <td>128.53</td>
+                        <td>520.23</td>
+                    </tr>
+                    {%for log in logs %}
+                    <tr class="tableBody">
+                        <td>{{log.transcation_time}}</td>
+                        <td>{{log.total_amount}}</td>
+                        <td>{{log.avg_price_try}}</td>
+                        <td>{{log.avg_price_usd}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>    
+    </div>
+</div>
+{%endblock%}
