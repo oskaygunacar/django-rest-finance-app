@@ -11,7 +11,7 @@
 
 {%block content%}
 <div class="container">
-    <h1 class="text-center">Add New {{category}} Asset</h1>
-    {%include 'tradehub/components/form.html' with action_button='Add Asset'%}
+    <h1 class="text-center">Add New {{asset.name.upper}} Transcation</h1>
+    {%include 'tradehub/components/form.html' with action_button='Log New Transaction'%}
 </div>
 {%endblock%}

@@ -30,11 +30,11 @@ def add_new_asset(request, asset_category_slug):
         Adds a new asset to the given "asset" category
     """
     form = AssetForm(request.POST or None, request.FILES or None)
+    category = get_object_or_404(Category,slug=asset_category_slug) # if there is no category, it will raise 404
     if form.is_valid():
         obj = form.save(commit=False)
         obj.name = form.cleaned_data.get('name').title()
         obj.user = request.user
-        category = get_object_or_404(Category,slug=asset_category_slug)
         obj.category = category
         saved_obj = obj.save()
         # return redirect('tradehub:asset', slug=saved_obj.slug) # BURAYI DÜZENLE !!!!
@@ -54,6 +54,10 @@ def asset_logs(request, asset_slug):
     context = dict(asset=asset, logs=logs)
     return render(request, 'tradehub/asset.html', context=context)
 
+def rounder(sayi, basamak):
+    carpani = 10 ** basamak
+    return round(sayi * carpani) / carpani
+
 def add_new_asset_transcation(request, asset_slug):
     """
     Adds a new transcation to the given "asset"
@@ -61,13 +65,19 @@ def add_new_asset_transcation(request, asset_slug):
     form = AssetTranscationForm(request.POST or None)
     asset = get_object_or_404(Asset, slug=asset_slug, user=request.user)
     if form.is_valid():
+        transcation_time= datetime.now().strftime("%d/%m/%Y")
+        total_amount=form.cleaned_data.get('total_amount')
+        total_cost = form.cleaned_data.get('total_cost')
         transcation = dict(
-            transcation_time= datetime.now().strftime("%d/%m/%Y"),
-            total_amount=form.cleaned_data.get('amount'),
-            avg_price_try=form.cleaned_data.get('avg_price_try'),
-            avg_usd=form.cleaned_data.get('avg_usd'),
+            transcation_time = transcation_time,
+            total_amount = total_amount,
+            total_cost = total_cost,
+            ort_usd=rounder(total_cost/total_amount, 2),
         )
         asset.logs.append(transcation)
+        asset.amount += rounder(total_amount,2)
+        asset.cost += rounder(total_cost,2)
+        asset.ort_usd = rounder(asset.cost/asset.amount, 2)
         asset.save()
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
     context = dict(form=form, asset=asset)

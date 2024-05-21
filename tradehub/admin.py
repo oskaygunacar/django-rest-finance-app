@@ -10,4 +10,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Asset)
 class AssetAdmin(admin.ModelAdmin):
-    list_display = ['category','name', 'asset_image','amount','ort_try','ort_usd','user']
+    list_display = ['category','name', 'asset_image','amount','cost','ort_usd','user']

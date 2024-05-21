@@ -7,6 +7,5 @@ class AssetForm(forms.ModelForm):
         fields = ['name', 'asset_image']
 
 class AssetTranscationForm(forms.Form):
-    total_amount = forms.FloatField()
-    avg_price_try = forms.FloatField()
-    avg_usd = forms.FloatField()
+    total_amount = forms.FloatField(label='Total Asset Amount')
+    total_cost = forms.FloatField(label='Total Cost ($)')
