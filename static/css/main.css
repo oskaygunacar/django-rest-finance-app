@@ -1,5 +1,4 @@
 body {
-    padding: 0px;
     margin: 0px;
     box-sizing: border-box;
     background-color: #19202e;
@@ -49,4 +48,10 @@ a:hover {
     background-color: #6ab26b;
     color: white;
     font-weight: 600;
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        padding: 10px 20px;
+    }
 }

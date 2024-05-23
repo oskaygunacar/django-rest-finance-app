@@ -29,10 +29,23 @@
                     {{logs}}
                     {%for log in logs %}
                     <tr class="tableBody">
-                        <td>{{log.transcation_time}}</td>
-                        <td>{{log.total_amount}}</td>
-                        <td>{{log.total_cost}}</td>
-                        <td>{{log.ort_usd}}</td>
+                        {%if asset.category == 'crypto'%}
+                            <td>{{log.transcation_time}}</td>
+                            <td>{{log.total_amount}}</td>
+                            <td>{{log.total_cost}}</td>
+                            <td>{{log.ort_usd|floatformat:4}}</td>
+                        {%elif asset.category == 'stocks' %}
+                            <td>{{log.transcation_time}}</td>
+                            <td>{{log.total_amount}}</td>
+                            <td>{{log.total_cost}}</td>
+                            <td>{{log.ort_usd|floatformat:4}}</td>
+                        {%else%}
+                            <td>{{log.transcation_time}}</td>
+                            <td>{{log.total_amount|floatformat:4}}</td>
+                            <td>{{log.total_cost}}</td>
+                            <td>{{log.ort_usd|floatformat:4}}</td>
+
+                        {%endif%}
                     </tr>
                     {%endfor%}
                 </tbody>

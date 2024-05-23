@@ -10,6 +10,7 @@ from .forms import AssetForm, AssetTranscationForm
 
 #python
 from datetime import datetime
+from decimal import Decimal
 
 def homepage(request):
     return render(request, 'tradehub/homepage.html', context={})
@@ -68,16 +69,22 @@ def add_new_asset_transcation(request, asset_slug):
         transcation_time= datetime.now().strftime("%d/%m/%Y")
         total_amount=form.cleaned_data.get('total_amount')
         total_cost = form.cleaned_data.get('total_cost')
+
+        # Decimal dönüştürme
+        total_amount = Decimal(total_amount)
+        total_cost = Decimal(total_cost)
+
+        asset.amount += total_amount
+        asset.cost += total_cost
+        asset.ort_usd = asset.cost / asset.amount
+        asset.save()
         transcation = dict(
-            transcation_time = transcation_time,
-            total_amount = total_amount,
-            total_cost = total_cost,
-            ort_usd=rounder(total_cost/total_amount, 2),
+            transcation_time=transcation_time,
+            total_amount=str(asset.amount),
+            total_cost=str(asset.cost),
+            ort_usd=str(asset.ort_usd),
         )
         asset.logs.append(transcation)
-        asset.amount += rounder(total_amount,2)
-        asset.cost += rounder(total_cost,2)
-        asset.ort_usd = rounder(asset.cost/asset.amount, 2)
         asset.save()
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
     context = dict(form=form, asset=asset)

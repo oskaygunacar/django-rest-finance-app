@@ -18,15 +18,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #2d2d2d;
+    background-color: #6ab26b;
     padding: 16px;
     border-radius: 15px;
+    font-weight: 900;
 }
 
 .assetsDashboard {
     background-color: #131212;
     border-radius: 15px;
-    width: 500px;
+    width: 800px;
     margin-top:20px;
 }
 
@@ -59,8 +60,15 @@
 
 .tableBody td {
     text-align: center;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    border-right: 1px solid #2d2d2d;
+    padding: 5px;
 }
 
+.tableBody td:last-child {
+    border-right:none;
+}
 
 #newAssetLog {
     margin-right:auto;
@@ -91,13 +99,19 @@
     }
 }
 
+@media screen and (max-width: 900px) {
+    .assetsDashboard {
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 550px) {
     .assetsDashboard {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        margin-bottom: 50px;
     }
 
     table {
@@ -105,11 +119,25 @@
     }
 
     .assetsDashboard .assets {
-        display: block;
+        font-size: 15px;
     }
 
     .assetsDashboard .asset {
         border-right: none !important;
     }
     
+    .assetStats {
+        flex-direction: column;
+    }
+
+    .assetStats span.assetStat{
+        margin-bottom: 10px;
+    }
+
+}
+
+@media screen and (max-width: 370px) {
+    .assetsDashboard .assets {
+        padding:3px;
+    }
 }

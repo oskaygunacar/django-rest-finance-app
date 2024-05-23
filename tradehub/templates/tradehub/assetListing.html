@@ -13,7 +13,7 @@
         <div class="assets">
             {% for asset in assets%}
                 {%if asset%}
-                    <div class="asset"><a href="{{asset.get_absolute_url}}">{% if asset.asset_image%}<img src="{{asset.asset_image.url}}" alt="{{asset.name}}" class="assetIMG" width="35px">{%endif%} {{asset.name}} {{asset.ort_usd}}</a>
+                    <div class="asset"><a href="{{asset.get_absolute_url}}">{% if asset.asset_image%}<img src="{{asset.asset_image.url}}" alt="{{asset.name}}" class="assetIMG" width="35px">{%endif%} {{asset.name}}</a>
                     </div>
                 {%endif%}
             {%endfor%}
