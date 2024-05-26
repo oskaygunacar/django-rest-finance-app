@@ -39,12 +39,6 @@
                             <td>{{log.total_amount}}</td>
                             <td>{{log.total_cost}}</td>
                             <td>{{log.ort_usd|floatformat:4}}</td>
-                        {%elif category == Estate %}
-                            <td>{{log.transcation_time}}</td>
-                            <td>{{log.total_amount|floatformat:4}}</td>
-                            <td>{{log.total_cost}}</td>
-                            <td>{{log.ort_usd|floatformat:4}}</td>
-
                         {%endif%}
                     </tr>
                     {%endfor%}

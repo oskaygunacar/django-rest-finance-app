@@ -27,7 +27,7 @@ class Asset(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=50, decimal_places=10, default=0)
-    cost = models.DecimalField(max_digits=100, decimal_places=3, default=0)
+    cost = models.DecimalField(max_digits=100, decimal_places=2, default=0)
     ort_usd = models.DecimalField(max_digits=100, decimal_places=10, default=0)
     logs = models.JSONField(null=True, blank=True, default=list)
     asset_image = models.ImageField(upload_to='asset/', blank=True, null=True)
