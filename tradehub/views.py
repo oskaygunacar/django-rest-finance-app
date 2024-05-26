@@ -22,7 +22,7 @@ def asset_category(request, asset_category_slug):
     user = request.user
     category = get_object_or_404(Category, slug=asset_category_slug)
     assets = Asset.objects.filter(user=user, category=category)
-    context = dict(assets=assets, title=category.name, category=category)
+    context = dict(assets=assets, title=category.name)
     return render(request, 'tradehub/assetListing.html', context=context)
 
 
@@ -52,7 +52,7 @@ def asset_logs(request, asset_slug):
     if page_number == 1:
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
     logs = paginator.get_page(page_number)
-    context = dict(asset=asset, logs=logs)
+    context = dict(asset=asset, logs=logs, category=asset.category.name)
     return render(request, 'tradehub/asset.html', context=context)
 
 def rounder(sayi, basamak):

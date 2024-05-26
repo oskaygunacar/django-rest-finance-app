@@ -1,5 +1,6 @@
 {%extends 'base.html'%}
 {%load static%}
+{% load custom_filters %}
 
 {%block pagecss%} <link rel="stylesheet" href="{%static 'tradehub/css/asset.css'%}"> {%endblock%}
 
@@ -10,9 +11,9 @@
     </h1>
     <div id="newAssetLog"><a href="/asset/add-new-transcation/{{asset.slug}}/">Add New {{asset.name.upper}} Transaction</a></div>
     <div class="assetStats">
-        <span class="assetStat"><b>Asset Amounth:</b> {{asset.amount}}</span>
-        <span class="assetStat"> <b>Asset Total Cost ($):</b> {{asset.cost}}</span>
-        <span class="assetStat"> <b>Asset Average Cost (per) ($):</b> {{asset.ort_usd}}</span>
+        <span class="assetStat"><b>Asset Amounth:</b> {{asset.amount|format_decimal}}</span>
+        <span class="assetStat"> <b>Asset Total Cost ($):</b> {{asset.cost|format_decimal|format_cost}}</span>
+        <span class="assetStat"> <b>Asset Average Cost (per) ($):</b> {{asset.ort_usd|format_decimal}}</span>
     </div>
     <div class="assetsDashboard">
         <div class="assets">
@@ -29,16 +30,16 @@
                     {{logs}}
                     {%for log in logs %}
                     <tr class="tableBody">
-                        {%if category == Crypto%}
+                        {%if category == 'Crypto'%}
                             <td>{{log.transcation_time}}</td>
-                            <td>{{log.total_amount}}</td>
-                            <td>{{log.total_cost}}</td>
-                            <td>{{log.ort_usd|floatformat:4}}</td>
-                        {%elif category == Stocks %}
+                            <td>{{log.total_amount|format_decimal}}</td>
+                            <td>{{log.total_cost|format_decimal|format_cost}}</td>
+                            <td>{{log.ort_usd|floatformat:4|format_decimal}}</td>
+                        {%elif category == 'Stocks' %}
                             <td>{{log.transcation_time}}</td>
-                            <td>{{log.total_amount}}</td>
-                            <td>{{log.total_cost}}</td>
-                            <td>{{log.ort_usd|floatformat:4}}</td>
+                            <td>{{log.total_amount|format_decimal}}</td>
+                            <td>{{log.total_cost|format_decimal|format_cost}}</td>
+                            <td>{{log.ort_usd|floatformat:4|format_decimal}}</td>
                         {%endif%}
                     </tr>
                     {%endfor%}

@@ -136,10 +136,9 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 #todoList
-#Done: Asset Detail Page Oluşturulacak (Page Design + View)
+#DONE: Asset Detail Page Oluşturulacak (Page Design + View)
     #TODO: Grafik ekleme işlevini de chart.js kullanarak gerçekleştir. Notionda nasıl yapalacağı task içinde anlatıldı.
-    #Done: Add Asset Transcation Page'i Formu ile beraber oluştur.
-    #TODO: Asset Detail Page'e .'lardan cost'ları ayırmaya yönelik filter oluşturulacak -> örn 1000000 to 1.000.000
-    #TODO: Asset Detail Page'de estatelerde kullanmak üzere decimal amonunt değerlerini INT'e çevirecek bir filter oluşturulacak.
+    #DONE: Add Asset Transcation Page'i Formu ile beraber oluştur.
+    #DONE: Asset Detail Page'e .'lardan cost'ları ayırmaya yönelik filter oluşturulacak -> örn 1000000 to 1.000.000.00
 #TODO: Account Register, Login, Logout İşlemleri Oluşturulacak.
 #TODO: Profile Page, User Settings Change Page, Password Change Page oluşturulacak.
