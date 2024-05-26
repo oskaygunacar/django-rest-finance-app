@@ -71,22 +71,23 @@ def add_new_asset_transcation(request, asset_slug):
         total_cost = form.cleaned_data.get('total_cost')
 
         # Decimal dönüştürme
-        total_amount = Decimal(total_amount)
-        total_cost = Decimal(total_cost)
+        dec_total_amount = Decimal(total_amount)
+        dec_total_cost = Decimal(total_cost)
 
-        asset.amount += total_amount
-        asset.cost += total_cost
+        asset.amount += dec_total_amount
+        asset.cost += dec_total_cost
         asset.ort_usd = asset.cost / asset.amount
         asset.save()
         transcation = dict(
             transcation_time=transcation_time,
-            total_amount=str(asset.amount),
-            total_cost=str(asset.cost),
-            ort_usd=str(asset.ort_usd),
+            total_amount=total_amount,
+            total_cost=total_cost,
+            ort_usd=str(total_cost / total_amount),
         )
+        print(total_amount, total_cost)
         asset.logs.append(transcation)
         asset.save()
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
-    context = dict(form=form, asset=asset)
+    context = dict(form=form, asset=asset, category=asset.category.name)
     return render(request, 'tradehub/addNewAssetTranscation.html', context=context)
     
