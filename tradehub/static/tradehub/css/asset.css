@@ -84,6 +84,19 @@
     font-weight: 600;
 }
 
+.assetGraph {
+    width: 400px !important;
+}
+
+#deleteLogsBtn {
+    background-color: #ff0000;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 700;
+    margin-left: auto;
+    margin-top:10px;
+}
+
 
 @media screen and (max-width: 1000px) {
     #newAssetLog a{

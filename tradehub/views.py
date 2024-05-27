@@ -11,6 +11,7 @@ from .forms import AssetForm, AssetTranscationForm
 #python
 from datetime import datetime
 from decimal import Decimal
+import json
 
 def homepage(request):
     return render(request, 'tradehub/homepage.html', context={})
@@ -52,7 +53,9 @@ def asset_logs(request, asset_slug):
     if page_number == 1:
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
     logs = paginator.get_page(page_number)
-    context = dict(asset=asset, logs=logs, category=asset.category.name)
+    data = [cost['ort_usd'] for cost in logs]
+    labels = [index +1 for index, label in enumerate(data)]
+    context = dict(asset=asset, logs=logs, category=asset.category.name, data=data, labels=labels)
     return render(request, 'tradehub/asset.html', context=context)
 
 def rounder(sayi, basamak):
@@ -79,15 +82,32 @@ def add_new_asset_transcation(request, asset_slug):
         asset.ort_usd = asset.cost / asset.amount
         asset.save()
         transcation = dict(
+            id = len(asset.logs) + 1,
             transcation_time=transcation_time,
             total_amount=total_amount,
             total_cost=total_cost,
             ort_usd=str(total_cost / total_amount),
         )
-        print(total_amount, total_cost)
         asset.logs.append(transcation)
         asset.save()
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
     context = dict(form=form, asset=asset, category=asset.category.name)
     return render(request, 'tradehub/addNewAssetTranscation.html', context=context)
     
+
+def delete_asset_transcation(request, asset_slug):
+    if request.method == "POST":
+        asset = get_object_or_404(Asset, slug=asset_slug, user=request.user)
+        items_to_delete = json.loads(request.body)
+        print(items_to_delete)
+        for item in items_to_delete: # items_to_delete includes ids that selected by user before clicked on delete logs button
+            print(item, type(item))
+            for index, log in enumerate(asset.logs):
+                if int(log.get('id')) == int(item):
+                    # print(log, type(log))
+                    asset.amount -= Decimal(log.get('total_amount'))
+                    asset.cost -= Decimal(log.get('total_cost'))
+                    asset.ort_usd = asset.cost / asset.amount if asset.amount != 0 else 0
+                    asset.logs.pop(index)
+        asset.save()
+        return redirect('tradehub:asset_logs', asset_slug=asset_slug)
