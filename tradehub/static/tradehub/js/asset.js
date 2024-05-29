@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
 
             e.preventDefault();
+            window.location.reload();
         }
     });
 });

@@ -47,7 +47,7 @@ def add_new_asset(request, asset_category_slug):
 
 def asset_logs(request, asset_slug):
     asset = get_object_or_404(Asset, slug=asset_slug, user=request.user)
-    all_logs = asset.logs # all asset transcation logs
+    all_logs = asset.logs[::-1] # all asset transcation logs
     paginator = Paginator(all_logs, 10)
     page_number = request.GET.get('page')
     if page_number == 1:

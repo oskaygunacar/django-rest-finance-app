@@ -4,8 +4,14 @@ body {
     background-color: #19202e;
     color: white;
     padding: 50px 10% 0px 10%;
-    height: 100vh;
+    min-height: 100vh;
     font-family: "Nunito", sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
 }
 
 .navbar {

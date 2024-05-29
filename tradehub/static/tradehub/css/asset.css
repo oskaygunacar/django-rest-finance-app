@@ -97,6 +97,9 @@
     margin-top:10px;
 }
 
+.assetGraph {
+    margin-bottom:50px;
+}
 
 @media screen and (max-width: 1000px) {
     #newAssetLog a{
@@ -143,5 +146,13 @@
 @media screen and (max-width: 370px) {
     .assetsDashboard .assets {
         padding:3px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #myChart{
+        width: 320px !important;
+        height: auto;
+        margin:0 auto;
     }
 }
