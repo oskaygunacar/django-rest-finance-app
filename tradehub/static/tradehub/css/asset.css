@@ -101,6 +101,32 @@
     margin-bottom:50px;
 }
 
+.pagination {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.page-item a {
+    padding: 4px 6px;
+    color: white;
+    background-color: #6ab26b;
+    border: 0.5px solid #ffffff;
+    margin-right: 2px;
+    max-width: 50px;
+    font-size: 16px;
+}
+.page-item a:hover {
+    color: white;
+    background-color: #6ab26b;
+}
+
+.mt-5 {
+    margin-top:50px;
+}
+
 @media screen and (max-width: 1000px) {
     #newAssetLog a{
         font-size:13px;
@@ -127,7 +153,7 @@
     }
 
     .assetsDashboard .assets {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .assetsDashboard .asset {

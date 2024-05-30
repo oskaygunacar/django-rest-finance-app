@@ -23,7 +23,7 @@ def asset_category(request, asset_category_slug):
     user = request.user
     category = get_object_or_404(Category, slug=asset_category_slug)
     assets = Asset.objects.filter(user=user, category=category)
-    context = dict(assets=assets, title=category.name)
+    context = dict(assets=assets, title=category.name, category=category)
     return render(request, 'tradehub/assetListing.html', context=context)
 
 

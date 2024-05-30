@@ -36,6 +36,7 @@
                 </thead>
                 <tbody>
                     {{logs}}
+                    {% include 'tradehub/components/paginationUI.html' with logs=logs%}
                     {%for log in logs %}
                     <tr class="tableBody">
                         <td><input type="checkbox" name="checkbox" id="logCheckBox" row-id="{{log.id}}"></td>
@@ -49,7 +50,7 @@
             </table>
         </div>    
     </div>
-    <h2 class="text-center">Asset Per Cost Performance</h2>
+    <h2 class="text-center mt-5">Asset Per Cost Performance</h2>
     <div class="assetGraph">
         <canvas id="myChart" width="400" height="200"></canvas>
     </div>
