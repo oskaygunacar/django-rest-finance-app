@@ -28,6 +28,7 @@
                 <thead>
                     <tr class="tableHeading">
                         <th></th>
+                        <th>Type</th>
                         <th>Transaction Time</th>
                         <th>{{asset.name.upper}} Amounth</th>
                         <th>Total Cost ($)</th>
@@ -40,6 +41,13 @@
                     {%for log in logs %}
                     <tr class="tableBody">
                         <td><input type="checkbox" name="checkbox" id="logCheckBox" row-id="{{log.id}}"></td>
+                        <td>
+                            {%if log.transaction_type == 'buy' %}
+                            <iconify-icon icon="simple-icons:buefy"></iconify-icon>
+                            {%elif log.transaction_type == 'sell' %}
+                            <iconify-icon icon="simple-icons:sellfy"></iconify-icon>
+                            {%endif%}
+                        </td>
                         <td>{{log.transcation_time}}</td>
                         <td>{{log.total_amount|format_decimal}}</td>
                         <td>{{log.total_cost|format_decimal|format_cost}}</td>

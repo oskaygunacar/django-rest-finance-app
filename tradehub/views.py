@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 #models
 from .models import Asset, Category
@@ -10,7 +11,7 @@ from .forms import AssetForm, AssetTranscationForm
 
 #python
 from datetime import datetime
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 import json
 
 def homepage(request):
@@ -53,7 +54,7 @@ def asset_logs(request, asset_slug):
     if page_number == 1:
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
     logs = paginator.get_page(page_number)
-    data = [cost['ort_usd'] for cost in logs]
+    data = [cost['ort_usd'] for cost in logs if cost.get('transaction_type') == 'buy'][::-1]
     labels = [index +1 for index, label in enumerate(data)]
     context = dict(asset=asset, logs=logs, category=asset.category.name, data=data, labels=labels)
     return render(request, 'tradehub/asset.html', context=context)
@@ -72,24 +73,44 @@ def add_new_asset_transcation(request, asset_slug):
         transcation_time= datetime.now().strftime("%d/%m/%Y")
         total_amount=form.cleaned_data.get('total_amount')
         total_cost = form.cleaned_data.get('total_cost')
+        transaction_type = form.cleaned_data.get('transaction_type')
 
         # Decimal dönüştürme
         dec_total_amount = Decimal(total_amount)
         dec_total_cost = Decimal(total_cost)
 
-        asset.amount += dec_total_amount
-        asset.cost += dec_total_cost
-        asset.ort_usd = asset.cost / asset.amount
-        asset.save()
-        transcation = dict(
+
+        if transaction_type == 'sell' and dec_total_amount.quantize(Decimal('0.0000000001'), rounding=ROUND_HALF_UP) > asset.amount:
+            messages.error(request, 'Sell amount exceeds available amount. Check and try again.')
+            return redirect('tradehub:add_new_asset_transcation', asset_slug=asset_slug)
+        elif transaction_type == 'sell' and dec_total_amount.quantize(Decimal('0.0000000001'), rounding=ROUND_HALF_UP) <= asset.amount:
+            asset.amount -= dec_total_amount
+            asset.cost -= dec_total_amount * asset.ort_usd
+            asset.ort_usd = 0 if asset.amount == 0 else asset.ort_usd
+            transcation = dict(
             id = len(asset.logs) + 1,
+            transaction_type = transaction_type,
             transcation_time=transcation_time,
             total_amount=total_amount,
             total_cost=total_cost,
             ort_usd=str(total_cost / total_amount),
         )
-        asset.logs.append(transcation)
-        asset.save()
+            asset.logs.append(transcation)
+            asset.save()
+        else: # buy transcation codes.
+            asset.amount += dec_total_amount
+            asset.cost += dec_total_cost
+            asset.ort_usd = asset.cost / asset.amount
+            transcation = dict(
+                id = len(asset.logs) + 1,
+                transaction_type=transaction_type,
+                transcation_time=transcation_time,
+                total_amount=total_amount,
+                total_cost=total_cost,
+                ort_usd=str(total_cost / total_amount),
+            )
+            asset.logs.append(transcation)
+            asset.save()
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)
     context = dict(form=form, asset=asset, category=asset.category.name)
     return render(request, 'tradehub/addNewAssetTranscation.html', context=context)
@@ -99,15 +120,19 @@ def delete_asset_transcation(request, asset_slug):
     if request.method == "POST":
         asset = get_object_or_404(Asset, slug=asset_slug, user=request.user)
         items_to_delete = json.loads(request.body)
-        print(items_to_delete)
         for item in items_to_delete: # items_to_delete includes ids that selected by user before clicked on delete logs button
-            print(item, type(item))
             for index, log in enumerate(asset.logs):
                 if int(log.get('id')) == int(item):
                     # print(log, type(log))
-                    asset.amount -= Decimal(log.get('total_amount'))
-                    asset.cost -= Decimal(log.get('total_cost'))
-                    asset.ort_usd = asset.cost / asset.amount if asset.amount != 0 else 0
+                    if log.get('transaction_type') == 'sell':
+                        asset.amount += Decimal(log.get('total_amount'))
+                        asset.cost +=  Decimal(log.get('total_cost'))
+                        asset.ort_usd = asset.cost / asset.amount if asset.amount != 0 else 0
+                    elif log.get('transaction_type') == 'buy':
+                        asset.amount -= Decimal(log.get('total_amount'))
+                        asset.cost -= Decimal(log.get('total_cost'))
+                        asset.ort_usd = asset.cost / asset.amount  if asset.amount != 0 else 0
                     asset.logs.pop(index)
+                    break
         asset.save()
         return redirect('tradehub:asset_logs', asset_slug=asset_slug)

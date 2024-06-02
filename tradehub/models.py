@@ -47,7 +47,7 @@ class Asset(models.Model):
 
         self.amount = round_decimal(self.amount, 10)
         self.cost = round_decimal(self.cost, 3)
-        self.ort_usd = round_decimal(self.ort_usd, 10)
+        self.ort_usd = round_decimal(self.ort_usd, 10) if self.amount != 0 else 0
 
         super(Asset, self).save(*args, **kwargs)
 
