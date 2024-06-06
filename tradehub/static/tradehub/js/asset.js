@@ -9,9 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
     checkboxes.forEach((cBox) => {
         cBox.addEventListener('change', (e) => {
             if (e.target.checked) {
-                console.log(e.target.parentElement.parentElement);
                 let id = e.target.getAttribute('row-id');
                 itemsToDelete.push(id);
+                console.log(itemsToDelete);
+            } else {
+                let id = e.target.getAttribute('row-id');
+                index = itemsToDelete.indexOf(id);
+                itemsToDelete.splice(index, 1);
+                console.log(itemsToDelete);
             }
         });
     });
@@ -33,9 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (cBox.checked) {
                     cBox.parentElement.parentElement.remove();
                 }
-            })
-
-            e.preventDefault();
+            });
+            
             window.location.reload();
         }
     });

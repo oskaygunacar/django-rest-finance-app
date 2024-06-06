@@ -14,9 +14,9 @@
     </h1>
     <div id="newAssetLog"><a href="/asset/add-new-transcation/{{asset.slug}}/">Add New {{asset.name.upper}} Transaction</a></div>
     <div class="assetStats">
-        <span class="assetStat"><b>Asset Amounth:</b> {{asset.amount|format_decimal}}</span>
-        <span class="assetStat"> <b>Asset Total Cost ($):</b> {{asset.cost|format_decimal|format_cost}}</span>
-        <span class="assetStat"> <b>Asset Average Cost (per) ($):</b> {{asset.ort_usd|format_decimal}}</span>
+        <span class="assetStat" data-value="{{asset.amount|format_decimal}}" id="amount"><b>Asset Amounth:</b> {{asset.amount|format_decimal}}</span>
+        <span class="assetStat" data-value="{{asset.cost|format_decimal|format_cost}}" id="cost"> <b>Asset Total Cost ($):</b> {{asset.cost|format_decimal|format_cost}}</span>
+        <span class="assetStat" data-value="{{asset.ort_usd|format_decimal}}" id="average_cost"> <b>Asset Average Cost (per) ($):</b> {{asset.ort_usd|format_decimal}}</span>
     </div>
     <a href="" target-url="/{{asset.slug}}/delete-asset-logs/" id="deleteLogsBtn">Delete Log</a>
     <div id="csrf">

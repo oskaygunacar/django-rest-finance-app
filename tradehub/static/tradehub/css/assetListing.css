@@ -66,6 +66,27 @@
     font-weight: 600;
 }
 
+.assetInput {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#assetCheckBox {
+   cursor: pointer;
+   width: 20px;
+   height: 20px;
+}
+
+#deleteLogsBtn {
+    background-color: #ff0000;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 700;
+    margin-left: auto;
+    margin-top:10px;
+}
+
 @media screen and (max-width: 1400px) {
     #addNewAsset a {
         font-size:18px;

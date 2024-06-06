@@ -26,28 +26,24 @@ class Asset(models.Model):
     slug = AutoSlugField(populate_from='generate_random_slug', unique=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
-    amount = models.DecimalField(max_digits=50, decimal_places=10, default=0)
-    cost = models.DecimalField(max_digits=100, decimal_places=2, default=0)
-    ort_usd = models.DecimalField(max_digits=100, decimal_places=10, default=0)
+    amount = models.DecimalField(max_digits=50, decimal_places=10, default=Decimal('0'))
+    cost = models.DecimalField(max_digits=100, decimal_places=2, default=Decimal('0'))
+    ort_usd = models.DecimalField(max_digits=100, decimal_places=10, default=Decimal('0'))
     logs = models.JSONField(null=True, blank=True, default=list)
     asset_image = models.ImageField(upload_to='asset/', blank=True, null=True)
+    buy_count = models.IntegerField(default=0)
+    sell_count = models.IntegerField(default=0)
+
 
     def save(self, *args, **kwargs):
-        def round_decimal(value, decimal_places):
-            """Belirtilen ondalık hassasiyete göre yuvarlar, yalnızca gerekli olduğunda"""
-            if value is not None:
-                # Str'e çevirip ondalık noktadan sonrasına bak
-                str_value = str(value)
-                if '.' in str_value: # str'ye çevrilen değerde ondalık nokta var mı diye kontrol ediyoruz.
-                    integer_part, fractional_part = str_value.split('.') # Eğer varsa devamında tuple ataması ile integer ve fractional partları ayırıyoruz.
-                    if len(fractional_part) > decimal_places:
-                        rounding_precision = Decimal('1.' + '0' * decimal_places)
-                        value = value.quantize(rounding_precision, rounding=ROUND_HALF_UP)
-            return value
+        if self.amount <= 0:
+            self.amount = Decimal('0')
+            self.ort_usd = Decimal('0')
+            self.cost = Decimal('0')
 
-        self.amount = round_decimal(self.amount, 10)
-        self.cost = round_decimal(self.cost, 3)
-        self.ort_usd = round_decimal(self.ort_usd, 10) if self.amount != 0 else 0
+        if len(self.logs) < 1:
+            self.buy_count = 0
+            self.sell_count = 0
 
         super(Asset, self).save(*args, **kwargs)
 

@@ -16,4 +16,5 @@ urlpatterns = [
     path('asset/<slug:asset_slug>/', views.asset_logs, name='asset_logs'), #asset detail - asset transaction logs
     path('asset/add-new-transcation/<slug:asset_slug>/', views.add_new_asset_transcation, name='add_new_asset_transcation'), # yeni asset işlemi ekleme
     path('<slug:asset_slug>/delete-asset-logs/', views.delete_asset_transcation, name='delete_an_asset_transcation'), # asset loglardan bir log silme
+    path('<slug:asset_category_slug>/delete-asset/', views.delete_asset_category, name='delete_category_asset'), # Bir kategoriden asset silme
 ]
