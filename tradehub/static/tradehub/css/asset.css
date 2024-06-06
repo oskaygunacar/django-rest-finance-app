@@ -181,4 +181,8 @@
         height: auto;
         margin:0 auto;
     }
+
+    #errorDiv {
+        margin-top:20px;
+    }
 }

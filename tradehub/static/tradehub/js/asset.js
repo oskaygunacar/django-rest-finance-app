@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const deleteBtn = document.getElementById('deleteLogsBtn');
     const deleteTargetUrl = document.getElementById('deleteLogsBtn').getAttribute('target-url');
     const csrf = document.getElementById('csrf').children[0].value;
+    const errorDiv = document.getElementById('errorDiv');
 
     let itemsToDelete = [];
 
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     deleteBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         if (itemsToDelete.length > 0) {
             fetch(`${deleteTargetUrl}`, {
                 method: 'POST',
@@ -33,14 +35,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify(itemsToDelete)
             })
-
-            checkboxes.forEach((cBox) => {
-                if (cBox.checked) {
-                    cBox.parentElement.parentElement.remove();
+            .then(response => response.json())
+            .then(data => {
+                // If there is an error message, display it on page without backend request (Amount must be greater than 0)
+                if (data.message) {
+                    setTimeout(() => {
+                        errorDiv.innerText = data.message;
+                        setTimeout(() => {
+                            errorDiv.innerText = '';
+                        },2000)
+                    }, 200);
+                } else {
+                    // If there is no error message, remove the rows from the table
+                    checkboxes.forEach((cBox) => {
+                        if (cBox.checked) {
+                            cBox.parentElement.parentElement.remove();
+                        }
+                    });
+                    window.location.reload();
                 }
-            });
-            
-            window.location.reload();
+            })
         }
     });
 });

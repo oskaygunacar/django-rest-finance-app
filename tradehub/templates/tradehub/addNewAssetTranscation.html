@@ -12,6 +12,14 @@
 {%block content%}
 <div class="container">
     <h1 class="text-center">Add New {{asset.name.upper}} Transcation</h1>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>{{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
     {%include 'tradehub/components/form.html' with action_button='Log New Transaction'%}
 </div>
 {%endblock%}

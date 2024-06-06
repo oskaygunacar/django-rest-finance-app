@@ -19,6 +19,7 @@
         <span class="assetStat" data-value="{{asset.ort_usd|format_decimal}}" id="average_cost"> <b>Asset Average Cost (per) ($):</b> {{asset.ort_usd|format_decimal}}</span>
     </div>
     <a href="" target-url="/{{asset.slug}}/delete-asset-logs/" id="deleteLogsBtn">Delete Log</a>
+    <div id="errorDiv"></div>
     <div id="csrf">
         {%csrf_token%}
     </div>

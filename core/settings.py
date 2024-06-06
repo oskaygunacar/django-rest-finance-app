@@ -151,6 +151,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 #DONE:Asset Detail Sayfalarında Asset log sayısını 10 dan fazla arttır ve pagination yapısını kontrol et.
 #DONE: Paginated Sayfalar arasında gezinmek için UI elementi oluştur.
 #DONE: Buy ve Sell şeklinde iki farklı işlem yapısı oluşturulacak. Yapılan işleme göre asset dashboard update edilecek
-#TODO:Asset Category sayfalarında listelenen assetlerin (kullanıcı isterse) silinmesini sağlayacak JS sistemini kur.
+#DONE:Asset Category sayfalarında listelenen assetlerin (kullanıcı isterse) silinmesini sağlayacak JS sistemini kur.
 #TODO: Account Register, Login, Logout İşlemleri Oluşturulacak.
 #TODO: Profile Page, User Settings Change Page, Password Change Page oluşturulacak.
