@@ -158,4 +158,4 @@ def delete_asset_transcation(request, asset_slug):
                                 asset.logs.pop(index)
                         break
         asset.save()
-        return JsonResponse({'success':'True', 'logs':asset.logs})
+        return JsonResponse({'success':'True'})

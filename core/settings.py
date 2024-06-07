@@ -139,6 +139,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+
+USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
+
+
+
 #todoList
 #DONE: Asset Detail Page Oluşturulacak (Page Design + View)
     #DONE: Grafik ekleme işlevini de chart.js kullanarak gerçekleştir. Notionda nasıl yapalacağı task içinde anlatıldı.

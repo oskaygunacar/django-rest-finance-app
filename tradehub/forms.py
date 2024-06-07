@@ -21,6 +21,6 @@ def validate_max_length(value):
         raise ValidationError('Value is too big, it should not be longer than 18 digits')
 
 class AssetTranscationForm(forms.Form):
-    total_amount = forms.DecimalField(label='Total Asset Amount', max_digits=28, decimal_places=10, validators=[validate_asset_amount, validate_max_length])
-    total_cost = forms.DecimalField(label='Total Cost ($)', max_digits=26, decimal_places=2, validators=[validate_non_negative, validate_max_length])
-    transaction_type = forms.ChoiceField(choices=[('buy', 'Buy'), ('sell', 'Sell')], label='Transaction Type')
+    total_amount = forms.DecimalField(label=('Total Asset Amount'), max_digits=28, decimal_places=10, validators=[validate_asset_amount, validate_max_length], localize=True)
+    total_cost = forms.DecimalField(label=('Total Cost ($)'), max_digits=26, decimal_places=2, validators=[validate_non_negative, validate_max_length], localize=True)
+    transaction_type = forms.ChoiceField(choices=[('buy', 'Buy'), ('sell', 'Sell')], label=('Transaction Type'))
