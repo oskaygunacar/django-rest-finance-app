@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tradehub',
+    'account',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), BASE_DIR / 'tradehub/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), BASE_DIR / 'tradehub/templates', BASE_DIR / 'account/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
