@@ -6,7 +6,7 @@ from decimal import Decimal, InvalidOperation, ROUND_HALF_UP, ROUND_DOWN
 class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
-        fields = ['name', 'asset_image']
+        fields = ['name']
 
 def validate_non_negative(value):
     if value < 0:

@@ -30,7 +30,6 @@ class Asset(models.Model):
     cost = models.DecimalField(max_digits=100, decimal_places=2, default=Decimal('0'))
     ort_usd = models.DecimalField(max_digits=100, decimal_places=10, default=Decimal('0'))
     logs = models.JSONField(null=True, blank=True, default=list)
-    asset_image = models.ImageField(upload_to='asset/', blank=True, null=True)
 
 
     def save(self, *args, **kwargs):

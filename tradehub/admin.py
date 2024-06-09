@@ -11,5 +11,5 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Asset)
 class AssetAdmin(admin.ModelAdmin):
-    list_display = ['id', 'category','name','slug','asset_image','amount','cost','ort_usd','user']
-    list_display_links = ['id', 'category','name','slug','asset_image','amount','cost','ort_usd','user']
+    list_display = ['id', 'category','name','slug','amount','cost','ort_usd','user']
+    list_display_links = ['id', 'category','name','slug','amount','cost','ort_usd','user']
