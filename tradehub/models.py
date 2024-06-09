@@ -25,7 +25,7 @@ class Asset(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from='generate_random_slug', unique=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=50, decimal_places=10, default=Decimal('0'))
     cost = models.DecimalField(max_digits=100, decimal_places=2, default=Decimal('0'))
     ort_usd = models.DecimalField(max_digits=100, decimal_places=10, default=Decimal('0'))

@@ -3,6 +3,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 #models
 from .models import Asset, Category
@@ -18,6 +19,7 @@ import json
 def homepage(request):
     return render(request, 'tradehub/homepage.html', context={})
 
+@login_required(login_url='account:login')
 def asset_category(request, asset_category_slug):
     """
     Lists all the assets that user have in the given "asset" category
@@ -28,6 +30,7 @@ def asset_category(request, asset_category_slug):
     context = dict(assets=assets, title=category.name, category=category)
     return render(request, 'tradehub/assetListing.html', context=context)
 
+@login_required(login_url='account:login')
 def delete_asset_category(request, asset_category_slug):
     """
     Deletes the given "assets" in the category
@@ -42,7 +45,7 @@ def delete_asset_category(request, asset_category_slug):
         return redirect('tradehub:delete_category_asset', asset_category_slug=asset_category_slug )
     
 
-
+@login_required(login_url='account:login')
 def add_new_asset(request, asset_category_slug):
     """
         Adds a new asset to the given "asset" category
@@ -61,6 +64,7 @@ def add_new_asset(request, asset_category_slug):
     context = dict(form=form, category=asset_category_slug.title())
     return render(request, 'tradehub/addNewAsset.html', context=context)
 
+@login_required(login_url='account:login')
 def asset_logs(request, asset_slug):
     asset = get_object_or_404(Asset, slug=asset_slug, user=request.user)
     all_logs = asset.logs[::-1] # all asset transcation logs
@@ -74,6 +78,7 @@ def asset_logs(request, asset_slug):
     context = dict(asset=asset, logs=logs, category=asset.category.name, data=data, labels=labels)
     return render(request, 'tradehub/asset.html', context=context)
 
+@login_required(login_url='account:login')
 def add_new_asset_transcation(request, asset_slug):
     """
     Adds a new transcation to the given "asset"
@@ -132,6 +137,7 @@ def add_new_asset_transcation(request, asset_slug):
     context = dict(form=form, asset=asset, category=asset.category.name)
     return render(request, 'tradehub/addNewAssetTranscation.html', context=context)
 
+@login_required(login_url='account:login')
 def delete_asset_transcation(request, asset_slug):
     if request.method == "POST":
         asset = get_object_or_404(Asset, slug=asset_slug, user=request.user)

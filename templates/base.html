@@ -17,13 +17,42 @@
         {%include 'components/navbar.html'%}
     </header>
 
-    <main>
+    <main class="mt-5">
         {%block content%}
         {%endblock%}
     </main>
     
 
+    <script>
+            {%if request.user.is_authenticated%}
+                const navbar_user = document.getElementById('navbar_profile');
+                const navbarProfileDropdown = document.querySelector('.profileSection .profileDropdown');
+                navbar_user.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (navbarProfileDropdown.style.display === 'block') {
+                        navbarProfileDropdown.style.display = 'none';
+                    } else {
+                        navbarProfileDropdown.style.display = 'block';
+                    }
+                });
+            {%endif%}
+
+            // Mobile Navbar
+            const mobileNavbar = document.getElementById('mobile_navbar');
+            const mobileProfileDropdown = document.querySelector('.mobileProfileDropdown');
+
+            mobileNavbar.addEventListener('click', (event) => {
+                console.log('mobile_navbar clicked')
+                event.preventDefault();
+                if (mobileProfileDropdown.style.display === 'block') {
+                    mobileProfileDropdown.style.display = 'none';
+                } else {
+                    mobileProfileDropdown.style.display = 'block';
+                }
+            });
+    </script>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-    {%block pagescript%}{%endblock%}
+    {%block pagescript%}
+    {%endblock%}
 </body>
 </html>

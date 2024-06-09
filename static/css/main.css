@@ -8,10 +8,15 @@ body {
     font-family: "Nunito", sans-serif;
     display: flex;
     flex-direction: column;
+    display: block;
 }
 
 main {
     flex-grow: 1;
+}
+
+.mt-5 {
+    margin-top: 50px;
 }
 
 .navbar {
@@ -31,8 +36,57 @@ main {
     margin-right:5px;
 }
 
+.accountUrls {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center;
+}
+
 .accountUrls a {
-    margin-right:15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:35px;
+}
+.profileSection {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+#navbar_profile{
+    background-color: #6ab26b;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 3px;
+    font-weight: 800;
+    margin-right: 40px;
+    font-size: 15px;
+}
+
+.profileSection .profileDropdown {
+    display: none;
+    position: absolute;
+    top: 36px;
+    left: -30px;
+    background-color: white;
+    padding: 3px;
+    border: 2px solid #6ab26b;
+    border-radius: 18px;
+}
+
+.profileSection .profileDropdown a,
+.mobileProfileDropdown a
+{
+    color: #19202e !important;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.profileSection .profileDropdown .profileLinks {
+    margin:0px auto;
+    padding: 5px;
 }
 
 a {
@@ -56,8 +110,77 @@ a:hover {
     font-weight: 600;
 }
 
+
+#login_user{
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
 @media screen and (max-width: 800px) {
     body {
         padding: 10px 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .accountUrls {
+        display: none;
+    }
+
+    .profileSection {
+        display: none;
+    }
+
+    
+}
+
+/* Mobile */
+.mobileAccountUrls {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#mobile_navbar {
+    background-color: #6ab26b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: relative;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mobile_navbar iconify-icon {
+    font-size: 20px;
+}
+
+.mobileProfileDropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid #6ab26b;
+    border-radius: 10px;
+    position: absolute;
+    top: 57px;
+    right: 3px;
+}
+
+.profileDropdown {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+@media screen and (max-width: 600px) {
+    .mobileAccountUrls {
+        display: flex;
     }
 }

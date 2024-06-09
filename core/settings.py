@@ -159,5 +159,6 @@ USE_THOUSAND_SEPARATOR = True
 #DONE: Paginated Sayfalar arasında gezinmek için UI elementi oluştur.
 #DONE: Buy ve Sell şeklinde iki farklı işlem yapısı oluşturulacak. Yapılan işleme göre asset dashboard update edilecek
 #DONE:Asset Category sayfalarında listelenen assetlerin (kullanıcı isterse) silinmesini sağlayacak JS sistemini kur.
-#TODO: Account Register, Login, Logout İşlemleri Oluşturulacak.
-#TODO: Profile Page, User Settings Change Page, Password Change Page oluşturulacak.
+#DONE: Account Register, Login, Logout İşlemleri Oluşturulacak.
+#DONE: Profile section on navbar and Password Change Page oluşturulacak.
+#TODO: Mobile Navbar düzenlemesi yapılacak.

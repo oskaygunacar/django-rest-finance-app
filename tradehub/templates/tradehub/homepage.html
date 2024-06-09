@@ -6,7 +6,7 @@
 
 {%block content%}
 <div class="container">
-    <h1 class="text-center">Welcome to the TradeHub</h1>
+    <h1 class="text-center">{%if request.user.is_authenticated%} <span id="login_user">{{request.user.username.title}}</span> {%endif%} Welcome to the TradeHub</h1>
     <div class="assetsDashboard">
         <div class="assets">
             <div class="asset"><a href="/assets/crypto/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="" class="assetIMG" width="35px"> Crypto</a></div>

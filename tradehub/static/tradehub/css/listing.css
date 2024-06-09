@@ -4,6 +4,12 @@
     align-items: center;
     justify-content: center;
 }
+
+#login_user {
+    font-weight: 900;
+    color: #6ab26b;
+}
+
 .assetsDashboard {
     background-color: #131212;
     border-radius: 15px;
