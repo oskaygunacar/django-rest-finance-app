@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tradehub',
     'account',
+    'api',
     'crispy_forms',
     'crispy_bootstrap5',
+     'rest_framework',
+     'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +148,16 @@ USE_L10N = True
 USE_THOUSAND_SEPARATOR = True
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+}
+
 
 #todoList
 #DONE: Asset Detail Page Oluşturulacak (Page Design + View)
@@ -161,4 +174,8 @@ USE_THOUSAND_SEPARATOR = True
 #DONE:Asset Category sayfalarında listelenen assetlerin (kullanıcı isterse) silinmesini sağlayacak JS sistemini kur.
 #DONE: Account Register, Login, Logout İşlemleri Oluşturulacak.
 #DONE: Profile section on navbar and Password Change Page oluşturulacak.
-#TODO: Mobile Navbar düzenlemesi yapılacak.
+#DONE: Mobile Navbar düzenlemesi yapılacak.
+#DONE: Rest API Oluşturulacak
+#DONE: Rest API ile Category Asset ve Category Listeleme işlemleri gerçekleştirilecek.
+#TODO: Rest API ile Asset Detail (GET) ENDPOİNT oluşturulacak
+#TODO: Rest API ile Asset Detail (LOG Create) (POST) ENDPOİNT oluşturulacak
