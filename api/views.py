@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
+from decimal import Decimal
+from datetime import datetime
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -72,9 +75,51 @@ def asset_transaction_view(request, category_slug, asset_slug, *args, **kwargs):
     if serializer.is_valid():
         try:
             # Code BUY / SELL Section
-            asset.save()
+            transcation_time= datetime.now().strftime("%d/%m/%Y")
+            transaction_type = serializer.validated_data['transaction_type'].lower()
+            amount = serializer.validated_data['amount']
+            cost = serializer.validated_data['cost']
+            #create decimals for amount and cost
+            dec_amount = Decimal(amount)
+            dec_cost = Decimal(cost)
+
+            if transaction_type == 'sell' and amount > asset.amount:
+                return Response({'message': 'You cannot sell more than you have', 'status': 400}, status=400)
+            elif transaction_type == 'sell' and amount <= asset.amount:
+                asset.amount -= dec_amount
+                asset.cost -= dec_amount * asset.ort_usd
+                if asset.amount <= 0:
+                    previous_ort_usd = str(asset.ort_usd)
+                asset.ort_usd = 0 if asset.amount <= 0 else asset.ort_usd
+                transcation = dict(
+                # id = len(asset.logs) + 1,
+                id = max([log.get('id') for log in asset.logs]) + 1 if len(asset.logs) > 0 else len(asset.logs) + 1,
+                transaction_type = transaction_type,
+                transcation_time=transcation_time,
+                total_amount=str(amount),
+
+                total_cost=str(cost),
+                ort_usd=str(cost / amount),
+            )
+                transcation['previous_ort_usd'] = previous_ort_usd if asset.amount <= 0 else str(asset.ort_usd)
+                asset.logs.append(transcation)
+                asset.save()
+            else: # buy transcation codes.
+                asset.amount += dec_amount
+                asset.cost += dec_cost
+                asset.ort_usd = asset.cost / asset.amount
+                transcation = dict(
+                    id = max([log.get('id') for log in asset.logs]) + 1 if len(asset.logs) > 0 else len(asset.logs) + 1,
+                    transaction_type=transaction_type,
+                    transcation_time=transcation_time,
+                    total_amount=str(amount),
+                    total_cost=str(cost),
+                    ort_usd=str(cost / amount),
+                )
+                asset.logs.append(transcation)
+                asset.save()
         except:
             return Response({'message': 'An error occured while adding the transaction', 'status': 500}, status=500)
         else:
-            return Response({'message': 'Transaction added successfully', 'status': 200}, status=200)
+            return Response({'message': 'Transaction added successfully', 'status': 200, 'transaction':transcation}, status=200)
     return Response(serializer.errors, status=400)

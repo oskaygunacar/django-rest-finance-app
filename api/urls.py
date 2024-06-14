@@ -7,6 +7,7 @@ app_name = 'api'
 
 urlpatterns = [
     # POST URLS
+    path('<slug:category_slug>/assets/<slug:asset_slug>/transaction/', views.asset_transaction_view, name='add_asset_transaction'),
     path('<slug:category_slug>/assets/create/', views.create_new_asset, name='create_new_asset'),
     # GET URLS
     path('api-token-auth/', obtain_auth_token, name='get_user_api_token'),
