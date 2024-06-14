@@ -6,7 +6,11 @@ from  api import views
 app_name = 'api'
 
 urlpatterns = [
+    # POST URLS
+    path('<slug:category_slug>/assets/create/', views.create_new_asset, name='create_new_asset'),
+    # GET URLS
     path('api-token-auth/', obtain_auth_token, name='get_user_api_token'),
     path('categories/', views.all_categories, name='all_categories'),
     path('<slug:category_slug>/assets/', views.category_asset_listing_view, name='all_category_assets_listing'),
+    path('<slug:category_slug>/assets/<slug:asset_slug>/', views.asset_detail_view, name='asset_detail'),
 ]
