@@ -177,5 +177,8 @@ REST_FRAMEWORK = {
 #DONE: Mobile Navbar düzenlemesi yapılacak.
 #DONE: Rest API Oluşturulacak
 #DONE: Rest API ile Category Asset ve Category Listeleme işlemleri gerçekleştirilecek.
-#TODO: Rest API ile Asset Detail (GET) ENDPOİNT oluşturulacak
-#TODO: Rest API ile Asset Detail (LOG Create) (POST) ENDPOİNT oluşturulacak
+#DONE: Rest API ile Asset Categories, Category Assets, Asset Detail (GET) Endpoints oluşturulacak
+#DONE: Rest API ile Category Asset Create (POST) ENDPOİNT oluşturulacak
+#DONE: Rest API ile Asset Detail (LOG Create) (POST) ENDPOİNT oluşturulacak
+#TODO: Rest API ile Asset Detail (LOG DELETE) (DELETE) ENDPOINT oluşturulacak
+#TODO: Rest API Category Assets Delete Endpoint oluşturulacak

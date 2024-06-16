@@ -17,6 +17,42 @@ A trading app designed for users who want to track the average costs of their as
 - **Privacy**: Only logged-in users can access their asset transaction activities and asset categories.
 - **Rest API**: Restful API support will be added shortly.
 
+## API Endpoints Documentation
+
+### GET URLs
+- **List All Categories**:  
+  `/api/categories/`  
+  Lists all active categories on the site where assets can be created.
+
+- **List All Assets in a Category**:  
+  `/api/<category_slug>/assets/`  
+  Lists all assets created under the specified category.  
+  Example URL: `/api/crypto/assets/`
+
+- **Asset Details and Transaction Logs**:  
+  `/api/<category_slug>/assets/<asset_slug>`  
+  Lists details and transaction logs for the specified asset under the specified category.  
+  Example URL: `/api/crypto/assets/yyizuhvhayrwxjp/`
+
+### POST URLs
+- **Create an Asset in a Category**:  
+  `/api/<category_slug>/assets/create/`  
+  Creates an asset with the name sent in a POST request in the specified category.  
+  Example URL: `/api/crypto/assets/create/`
+
+- **Add a Transaction to an Asset**:  
+  `/api/<category_slug>/assets/<asset_slug>/transaction/`  
+  Adds a new transaction (buy or sell) to the specified asset in the specified category. The transaction is recorded directly in the database, and the asset data is updated.
+
+### DELETE URLs
+- **Delete a Specific Transaction**:  
+  `/api/<category_slug>/assets/<asset_slug>/transaction/delete/<transaction_id>/`  
+  Deletes the transaction with the specified `transaction_id` for the asset in the specified category using an HTTP Delete Request. No data needs to be sent in the request body, just an authentication token.
+
+- **Delete an Asset**:  
+  `/api/<slug:category_slug>/assets/<slug:asset_slug>/delete/`  
+  Permanently deletes the specified asset from the specified category using an HTTP Delete Request.
+
 ## Limitations
 - Users need to register to use the app.
 

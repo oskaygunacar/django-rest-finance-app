@@ -123,3 +123,43 @@ def asset_transaction_view(request, category_slug, asset_slug, *args, **kwargs):
         else:
             return Response({'message': 'Transaction added successfully', 'status': 200, 'transaction':transcation}, status=200)
     return Response(serializer.errors, status=400)
+
+
+# DELETE Views
+
+@api_view(http_method_names=['DELETE'])
+def remove_category_asset(request, category_slug, asset_slug):
+    """
+    This view is used to remove an asset from the given category.
+    """
+    category = get_object_or_404(Category, slug=category_slug)
+    asset = get_object_or_404(Asset, slug=asset_slug, category=category, user=request.user)
+    asset.delete()
+    return Response({'message': f'Asset removed from the {category} category successfully', 'status': 200}, status=200)
+
+@api_view(http_method_names=['DELETE'])
+def remove_asset_transaction(request, category_slug, asset_slug, transaction_id, *args, **kwargs):
+    """
+    This view is used to remove a transaction from the given asset.
+    """
+    category = get_object_or_404(Category, slug=category_slug)
+    asset = get_object_or_404(Asset, slug=asset_slug, category=category, user=request.user)
+    try:
+        for log in asset.logs:
+            if log.get('id') == transaction_id:
+                if log.get('transaction_type') == 'sell':
+                    asset.amount += Decimal(log.get('total_amount'))
+                    asset.cost += Decimal(log.get('total_cost'))
+                    asset.ort_usd = asset.cost / asset.amount
+                elif log.get('transaction_type') == 'buy' and asset.amount - Decimal(log.get('total_amount')) < 0:
+                    return Response({'message': 'Asset Amount cant be "-"', 'status': 400}, status=400)
+                else:
+                    asset.amount -= Decimal(log.get('total_amount'))
+                    asset.cost -= Decimal(log.get('total_cost'))
+                    asset.ort_usd = Decimal(asset.cost / asset.amount) if asset.amount != 0 else 0
+                asset.logs.remove(log)
+                asset.save()
+                return Response({'message': 'Transaction removed successfully', 'status': 200, 'transaction':log}, status=200)
+    except:
+        return Response({'message': 'An error occured while removing the transaction', 'status': 500}, status=500)
+    return Response({'message': 'Transaction not found', 'status': 404}, status=404) # 

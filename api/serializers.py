@@ -9,12 +9,16 @@ class CategorySerializer(serializers.ModelSerializer):
     This serializer is used to serialize the categories.
     """
     category_api_url = serializers.SerializerMethodField()
+    create_new_category_asset_url = serializers.SerializerMethodField()
     class Meta:
         model = Category
-        fields = ['name', 'category_api_url']
+        fields = ['name', 'category_api_url', 'create_new_category_asset_url']
 
     def get_category_api_url(self, instance): #instance or obj or whatever it just the name of the object
         return reverse('api:all_category_assets_listing', kwargs={'category_slug': instance.slug})
+    
+    def get_create_new_category_asset_url(self, instance):
+        return reverse('api:create_new_asset', kwargs={'category_slug': instance.slug})
 
 
 class CategoryAssetsSerializer(serializers.ModelSerializer):
@@ -24,10 +28,11 @@ class CategoryAssetsSerializer(serializers.ModelSerializer):
     category = serializers.SerializerMethodField()
     asset_api_detail_url = serializers.SerializerMethodField()
     asset_api_transaction_url = serializers.SerializerMethodField()
+    remove_asset_from_category_api_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Asset
-        fields = ['category','name', 'asset_api_detail_url', 'asset_api_transaction_url']
+        fields = ['category','name', 'asset_api_detail_url', 'asset_api_transaction_url', 'remove_asset_from_category_api_url']
 
     def get_category(self, obj):
         return obj.category.name
@@ -37,6 +42,9 @@ class CategoryAssetsSerializer(serializers.ModelSerializer):
     
     def get_asset_api_transaction_url(self,instance):
         return reverse('api:add_asset_transaction', kwargs={'category_slug': instance.category.slug,'asset_slug': instance.slug})
+    
+    def get_remove_asset_from_category_api_url(self, instance):
+        return reverse('api:remove_category_asset', kwargs={'category_slug': instance.category.slug,'asset_slug': instance.slug})
     
 class AssetSerializer(serializers.ModelSerializer):
     """
