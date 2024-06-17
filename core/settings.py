@@ -151,11 +151,10 @@ USE_THOUSAND_SEPARATOR = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 
@@ -180,5 +179,8 @@ REST_FRAMEWORK = {
 #DONE: Rest API ile Asset Categories, Category Assets, Asset Detail (GET) Endpoints oluşturulacak
 #DONE: Rest API ile Category Asset Create (POST) ENDPOİNT oluşturulacak
 #DONE: Rest API ile Asset Detail (LOG Create) (POST) ENDPOİNT oluşturulacak
-#TODO: Rest API ile Asset Detail (LOG DELETE) (DELETE) ENDPOINT oluşturulacak
-#TODO: Rest API Category Assets Delete Endpoint oluşturulacak
+#DONE: Rest API ile Asset Detail (LOG DELETE) (DELETE) ENDPOINT oluşturulacak
+#DONE: Rest API Category Assets Delete Endpoint oluşturulacak
+#TODO: Navbar üzerindeki Profile kısmına tıklanınca API token section açılarak kullanıcının token bilgilerini görmesi için ekstra sayfa sağlanacak. Kulalnıcı isterse ilgili sayfadan tokenını alabilecek yada yeni token talebi oluşturulabilecek.
+#TODO: Readme.md içerisine kullanıcının token almasını sağlayan URl (endpoint) bilgisi eklenecek
+#TODO: Her kullanıcı kayıt olduğunda otomatik o kullanıcı için token oluşturma işlemini sağlayan otomasyon kurulacak ve bu yapı ile alakalı bilgi readme.md'ye eklenecek.

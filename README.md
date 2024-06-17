@@ -19,6 +19,13 @@ A trading app designed for users who want to track the average costs of their as
 
 ## API Endpoints Documentation
 
+### How to GET API Token
+`/api/api-token-auth/`
+
+You can make a "GET" request to this URL to get the user token to use the API.
+
+When sending an HTTP GET request, username and password must be sent in the request body.
+
 ### GET URLs
 - **List All Categories**:  
   `/api/categories/`  
@@ -30,11 +37,11 @@ A trading app designed for users who want to track the average costs of their as
   Example URL: `/api/crypto/assets/`
 
 - **Asset Details and Transaction Logs**:  
-  `/api/<category_slug>/assets/<asset_slug>`  
+  `/api/<category_slug>/assets/<asset_slug>/`  
   Lists details and transaction logs for the specified asset under the specified category.  
   Example URL: `/api/crypto/assets/yyizuhvhayrwxjp/`
 
-### POST URLs
+### POST (Create) URLs
 - **Create an Asset in a Category**:  
   `/api/<category_slug>/assets/create/`  
   Creates an asset with the name sent in a POST request in the specified category.  
@@ -54,7 +61,7 @@ A trading app designed for users who want to track the average costs of their as
   Permanently deletes the specified asset from the specified category using an HTTP Delete Request.
 
 ## Limitations
-- Users need to register to use the app.
+- Users need to register to use the app. In order to use the REST API, the token information of the user whose asset information will be worked on is needed.
 
 ## Getting Started
 

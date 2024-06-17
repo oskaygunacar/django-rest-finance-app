@@ -76,6 +76,7 @@ class AssetTransactionSerializer(serializers.ModelSerializer):
     This serializer is used to serialize the asset transactions.
     """
     transaction_type = serializers.CharField(required=True)
+    amount = serializers.DecimalField(max_digits=28, decimal_places=10, required=True)
 
     def validate_transaction_type(self, value):
         """
@@ -83,6 +84,14 @@ class AssetTransactionSerializer(serializers.ModelSerializer):
         """
         if value.lower() not in ['buy', 'sell']:
             raise serializers.ValidationError("The transaction type you entered is invalid. Please enter either 'Buy/buy' or 'Sell/sell'.")
+        return value
+    
+    def validate_amount(self, value):
+        """
+        This method is used to validate the amount.
+        """
+        if value <= 0:
+            raise serializers.ValidationError('Asset amount cannot be empty, zero or negative')
         return value
     
     class Meta:

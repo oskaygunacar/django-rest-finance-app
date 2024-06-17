@@ -77,8 +77,8 @@ def asset_transaction_view(request, category_slug, asset_slug, *args, **kwargs):
             # Code BUY / SELL Section
             transcation_time= datetime.now().strftime("%d/%m/%Y")
             transaction_type = serializer.validated_data['transaction_type'].lower()
-            amount = serializer.validated_data['amount']
-            cost = serializer.validated_data['cost']
+            amount = serializer.validated_data.get('amount')
+            cost = serializer.validated_data.get('cost', 0)
             #create decimals for amount and cost
             dec_amount = Decimal(amount)
             dec_cost = Decimal(cost)
@@ -118,7 +118,8 @@ def asset_transaction_view(request, category_slug, asset_slug, *args, **kwargs):
                 )
                 asset.logs.append(transcation)
                 asset.save()
-        except:
+        except Exception as e:
+            print(e)
             return Response({'message': 'An error occured while adding the transaction', 'status': 500}, status=500)
         else:
             return Response({'message': 'Transaction added successfully', 'status': 200, 'transaction':transcation}, status=200)
