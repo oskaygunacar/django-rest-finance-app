@@ -11,6 +11,7 @@ urlpatterns = [
     path('<slug:category_slug>/assets/<slug:asset_slug>/transaction/', views.asset_transaction_view, name='add_asset_transaction'),
     path('<slug:category_slug>/assets/create/', views.create_new_asset, name='create_new_asset'),
     # GET URLS
+    path('api-token-auth/generate/', views.generate_new_api_token, name='generate_new_api_token'),
     path('api-token-auth/', obtain_auth_token, name='get_user_api_token'),
     path('categories/', views.all_categories, name='all_categories'),
     path('<slug:category_slug>/assets/', views.category_asset_listing_view, name='all_category_assets_listing'),

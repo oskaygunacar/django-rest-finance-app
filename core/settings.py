@@ -128,7 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), BASE_DIR / 'tradehub/static']
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), BASE_DIR / 'tradehub/static', BASE_DIR / 'account/static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
@@ -181,6 +181,6 @@ REST_FRAMEWORK = {
 #DONE: Rest API ile Asset Detail (LOG Create) (POST) ENDPOİNT oluşturulacak
 #DONE: Rest API ile Asset Detail (LOG DELETE) (DELETE) ENDPOINT oluşturulacak
 #DONE: Rest API Category Assets Delete Endpoint oluşturulacak
-#TODO: Navbar üzerindeki Profile kısmına tıklanınca API token section açılarak kullanıcının token bilgilerini görmesi için ekstra sayfa sağlanacak. Kulalnıcı isterse ilgili sayfadan tokenını alabilecek yada yeni token talebi oluşturulabilecek.
-#TODO: Readme.md içerisine kullanıcının token almasını sağlayan URl (endpoint) bilgisi eklenecek
-#TODO: Her kullanıcı kayıt olduğunda otomatik o kullanıcı için token oluşturma işlemini sağlayan otomasyon kurulacak ve bu yapı ile alakalı bilgi readme.md'ye eklenecek.
+#DONE: Navbar üzerindeki Profile kısmına tıklanınca API token section açılarak kullanıcının token bilgilerini görmesi için ekstra sayfa sağlanacak. Kulalnıcı isterse ilgili sayfadan tokenını alabilecek yada yeni token talebi oluşturulabilecek.
+#DONE: Readme.md içerisine kullanıcının token almasını sağlayan URl (endpoint) bilgisi eklenecek
+#DONE: Her kullanıcı kayıt olduğunda otomatik o kullanıcı için token oluşturma işlemini sağlayan otomasyon kurulacak ve bu yapı ile alakalı bilgi readme.md'ye eklenecek.

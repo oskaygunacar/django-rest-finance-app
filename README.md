@@ -15,9 +15,10 @@ A trading app designed for users who want to track the average costs of their as
 - **Average Cost Graph**: An average cost graph is created on the asset detail page based on all purchases, showing the costs of transactions visually. This allows users to track whether their costs are increasing or decreasing.
 - **Buy & Sell Transactions**: Users can log both buy and sell transactions in the system.
 - **Privacy**: Only logged-in users can access their asset transaction activities and asset categories.
-- **Rest API**: Restful API support will be added shortly.
+- **Rest API**: The project has a REST API that supports all listing, creation, deletion operations. All operations can be performed by following the documentation below. In REST API, token authentication is used as authentication method.
 
-## API Endpoints Documentation
+## API Token Creation
+- Every time a new user registers, an automatic token is generated for that user with the help of signals. No extra action is required.
 
 ### How to GET API Token
 `/api/api-token-auth/`
@@ -25,6 +26,19 @@ A trading app designed for users who want to track the average costs of their as
 You can make a "GET" request to this URL to get the user token to use the API.
 
 When sending an HTTP GET request, username and password must be sent in the request body.
+
+### How to Generate New API Token
+`/api/api-token-auth/generate/`
+
+You need to make a "GET" request to this URL with your current API Token to generate new API Token. After a succesfull request your access token will be renewed completely. Make a note of the new token or access your newly created token via the API Token Page page on the site.
+
+### On Site GET API Token and Generate New API Token
+
+`/account/api-token/`
+
+Visit this page (while you have logged in session) to get API Token on site. You can access this page by using navbar.
+
+## API Endpoints Documentation
 
 ### GET URLs
 - **List All Categories**:  
@@ -47,18 +61,26 @@ When sending an HTTP GET request, username and password must be sent in the requ
   Creates an asset with the name sent in a POST request in the specified category.  
   Example URL: `/api/crypto/assets/create/`
 
+    Example Request Body: `{"name":"test"}`
+
 - **Add a Transaction to an Asset**:  
   `/api/<category_slug>/assets/<asset_slug>/transaction/`  
   Adds a new transaction (buy or sell) to the specified asset in the specified category. The transaction is recorded directly in the database, and the asset data is updated.
+
+  Example Request Body: `{"amount":213123.123, "cost":12350, "transaction_type":"buy"}` (Cost data optional, if its not provided it will be processed as 0)
 
 ### DELETE URLs
 - **Delete a Specific Transaction**:  
   `/api/<category_slug>/assets/<asset_slug>/transaction/delete/<transaction_id>/`  
   Deletes the transaction with the specified `transaction_id` for the asset in the specified category using an HTTP Delete Request. No data needs to be sent in the request body, just an authentication token.
 
+  Example Delete Request URI: `/api/crypto/assets/xfunnlzmlmtnckr/delete/2/` - To get transaction ID you can check asset detail response. In asset detail request's response you can see all transactions and their IDs.
+
 - **Delete an Asset**:  
   `/api/<slug:category_slug>/assets/<slug:asset_slug>/delete/`  
   Permanently deletes the specified asset from the specified category using an HTTP Delete Request.
+
+    Example Delete Request URI: `/api/crypto/assets/xfunnlzmlmtnckr/delete/` - Permanently deletes the asset with slug 'xfunnlzmlmtnckr'
 
 ## Limitations
 - Users need to register to use the app. In order to use the REST API, the token information of the user whose asset information will be worked on is needed.
@@ -135,4 +157,5 @@ Contributions to improve the project are welcome. Please follow the standard for
 ![Add New Asset Transaction](./assets/images/add-new-asset-transaction.png)
 ### Asset Detail / Dashboard
 ![Asset Detail / Dashboard](./assets/images/asset-dashboard-detail.png)
-
+### API Token Landing Page
+![API Token Landing Page](./assets/images/api-token-landing-page.png)

@@ -12,6 +12,7 @@
                 <button id="navbar_profile">{{request.user.username}}</button>
                 <div class="profileDropdown">
                     <a href="{%url 'account:change_password'%}" class="profileLinks">Change Password</a>
+                    <a href="{%url 'account:user_api_token'%}" class="profileLinks">API Token</a>
                 </div>
             </div>
             <a href="{%url 'account:logout'%}">Logout</a>
@@ -26,6 +27,7 @@
                 <a href="{%url 'account:signup'%}">Register</a>
             {%else%}
                 <a href="{%url 'account:change_password'%}" class="profileLinks">Change Password</a>
+                <a href="{%url 'account:user_api_token'%}" class="profileLinks">API Token</a>
                 <a href="{%url 'account:logout'%}">Logout</a>
             </div>
         {%endif%}

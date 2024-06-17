@@ -7,6 +7,7 @@ from datetime import datetime
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 from .serializers import CategoryAssetsSerializer, CategorySerializer, AssetSerializer, AssetCreateSerializer, AssetTransactionSerializer
 
 # models
@@ -164,3 +165,18 @@ def remove_asset_transaction(request, category_slug, asset_slug, transaction_id,
     except:
         return Response({'message': 'An error occured while removing the transaction', 'status': 500}, status=500)
     return Response({'message': 'Transaction not found', 'status': 404}, status=404) # 
+
+@api_view(http_method_names=['GET'])
+def generate_new_api_token(request, *args, **kwargs):
+    """
+    This view is used to generate a new API token for the user.
+    """
+    try:
+        token = Token.objects.get(user=request.user)
+        token.delete()
+        Token.objects.create(user=request.user)
+        token = Token.objects.get(user=request.user)
+    except:
+        return Response({'message': 'An error occured while generating the new token', 'status': 500}, status=500)
+    else:
+        return Response({'message': 'New token generated successfully', 'status': 200, 'token':token.key}, status=200)
